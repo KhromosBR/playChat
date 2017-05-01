@@ -24,7 +24,7 @@ class LoginController: UIViewController {
     //creating the "register button
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(r: 80, g:101, b: 161)
+        button.backgroundColor = UIColor(r: 171, g:149, b: 6)
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: .normal)
@@ -91,7 +91,7 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        view.backgroundColor = UIColor(r: 84, g: 74, b: 3)
         
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
