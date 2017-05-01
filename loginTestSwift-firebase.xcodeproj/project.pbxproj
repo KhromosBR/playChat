@@ -14,6 +14,7 @@
 		52D8094F1EB0DCD3006346AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52D8094D1EB0DCD3006346AD /* LaunchScreen.storyboard */; };
 		52D809571EB0E5B5006346AD /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D809561EB0E5B5006346AD /* LoginController.swift */; };
 		6CFD8F671B05CB4295F300E7 /* Pods_loginTestSwift_firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E7C9BDAB56AEF5672C4AC7 /* Pods_loginTestSwift_firebase.framework */; };
+		F12448651EB73D5000325060 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F12448641EB73D5000325060 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9B87291330E28CB1DB88D938 /* Pods-loginTestSwift-firebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-loginTestSwift-firebase.release.xcconfig"; path = "Pods/Target Support Files/Pods-loginTestSwift-firebase/Pods-loginTestSwift-firebase.release.xcconfig"; sourceTree = "<group>"; };
 		BD5C1749D6E79CEDB5BB0754 /* Pods-loginTestSwift-firebase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-loginTestSwift-firebase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-loginTestSwift-firebase/Pods-loginTestSwift-firebase.debug.xcconfig"; sourceTree = "<group>"; };
 		D0E7C9BDAB56AEF5672C4AC7 /* Pods_loginTestSwift_firebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_loginTestSwift_firebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F12448641EB73D5000325060 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				52D8094B1EB0DCD3006346AD /* Assets.xcassets */,
 				52D8094D1EB0DCD3006346AD /* LaunchScreen.storyboard */,
 				52D809501EB0DCD3006346AD /* Info.plist */,
+				F12448641EB73D5000325060 /* GoogleService-Info.plist */,
 			);
 			path = "loginTestSwift-firebase";
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52D8094F1EB0DCD3006346AD /* LaunchScreen.storyboard in Resources */,
+				F12448651EB73D5000325060 /* GoogleService-Info.plist in Resources */,
 				52D8094C1EB0DCD3006346AD /* Assets.xcassets in Resources */,
 				52D8094A1EB0DCD3006346AD /* Main.storyboard in Resources */,
 			);
