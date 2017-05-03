@@ -26,16 +26,41 @@ class LoginController: UIViewController {
     lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 189, g:165, b: 7)
-        button.setTitle("Register", for: .normal)
+        button.setTitle("Register", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.white, for: UIControlState())
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         //Autenticate the user in Firebase
-        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
         
         return button
     }()
+    
+    func handleLoginRegister(){
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            handleLogin()
+        }else{
+            handleRegister()
+        }
+    }
+    
+    func handleLogin(){
+        guard let email = emailTextField.text, let password = passwordTextField.text
+            else {
+            print("form is not valid")
+            return
+        }
+        
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil{
+                print(error!)
+                return
+            }
+            //successfull logged in
+            self.dismiss(animated: true, completion: nil)
+        })
+    }
     
     func handleRegister(){
         
@@ -45,8 +70,9 @@ class LoginController: UIViewController {
         }
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
-            if error != nil{
-                print(error!)
+            if let error = error{
+                print(error)
+                return
             }
             
             guard let uid = user?.uid else {
@@ -54,15 +80,18 @@ class LoginController: UIViewController {
             }
             
             //Successfully autenticated
-            let ref = FIRDatabase.database().reference(fromURL: "https://play-chat-31de6.firebaseio.com/")
+            let ref = FIRDatabase.database().reference()
+//            (fromURL: "https://play-chat-31de6.firebaseio.com/")
             //creating a new child of users to organize the firebase data
             let usersReference = ref.child("Users").child(uid)
             let values = ["name": name, "email": email]
             usersReference.onDisconnectUpdateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil{
-                    print(err!)
+               
+                if let err = err{
+                    print(err)
                     return
                 }
+                self.dismiss(animated: true, completion: nil)
                 print("Saved user successfully into Firebase Database")
             })
 
@@ -136,7 +165,7 @@ class LoginController: UIViewController {
     
     func handleLoginRegisterChange(){
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
-        loginRegisterButton.setTitle(title, for: .normal)
+        loginRegisterButton.setTitle(title, for: UIControlState())
         
         //change height of inputContainerView
         inputsContainerViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex  == 0 ? 100 : 150
