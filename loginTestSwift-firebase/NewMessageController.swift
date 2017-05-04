@@ -20,7 +20,7 @@ class NewMessageController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleBack))
         
-        //After create the userCell class. Register the tableview with the identifier to be used later
+        //After create the userCell class. Register the tableview
         tableView.register(userCell.self, forCellReuseIdentifier: cellId)
         
         fetchUser()
@@ -31,8 +31,7 @@ class NewMessageController: UITableViewController {
         FIRDatabase.database().reference().child("Users").observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject]{
-                let users = User()
-                users.setValuesForKeys(dictionary)
+                let users = User(dictionary: dictionary)
                 self.users.append(users)
                 
                 //dispatch_async to fix the background crash
@@ -58,7 +57,7 @@ class NewMessageController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! userCell
         
         // It's how the users are fetched inside the tableview
         let user = users[indexPath.row]

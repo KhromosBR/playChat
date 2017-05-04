@@ -18,8 +18,8 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             print("form is not valid")
             return
         }
-        
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+                                                                                                /**/
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             if let error = error{
                 print(error)
                 return
@@ -43,12 +43,11 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                         return
                     }
                     //registering the user with the image into firebase database
-                    if let imageProfileUrl = metadata?.downloadURL()?.absoluteString{
-                            let values = ["name": name, "email": email, "profileImageUrl": imageProfileUrl] as [String : NSObject]
+                    if let profileImageUrl = metadata?.downloadURL()?.absoluteString{
+                            let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl]
                         
-                        self.registerUserIntoDatabaseWithUID(uid: uid, values: values)
+                        self.registerUserIntoDatabaseWithUID(uid, values: values as [String : AnyObject])
                     }
-                    print(metadata!)
                 })
             }
 
@@ -56,9 +55,9 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
     }
     //----------------------------------------------------------------------------------------------------
     
-    private func registerUserIntoDatabaseWithUID(uid: String, values: [String: NSObject]){
-        let ref = FIRDatabase.database().reference()
-        //            (fromURL: "https://play-chat-31de6.firebaseio.com/")
+    private func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]){
+        let ref = FIRDatabase.database().reference(fromURL: "https://play-chat-31de6.firebaseio.com/")
+        
         //creating a new child of users to organize the firebase data
         let usersReference = ref.child("Users").child(uid)
 
@@ -72,10 +71,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             print("Saved user successfully into Firebase Database")
         })
     }
-    
-    
-    
-    
     //----------------------------------------------------------------------------------------------------
     
     //Handle select profile Image
@@ -116,7 +111,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         print("The picker is canceled")
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
+
 
