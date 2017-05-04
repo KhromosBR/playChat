@@ -62,41 +62,7 @@ class LoginController: UIViewController {
         })
     }
     
-    func handleRegister(){
-        
-        guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
-            print("form is not valid")
-            return
-        }
-        
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
-            if let error = error{
-                print(error)
-                return
-            }
-            
-            guard let uid = user?.uid else {
-                return
-            }
-            
-            //Successfully autenticated
-            let ref = FIRDatabase.database().reference()
-//            (fromURL: "https://play-chat-31de6.firebaseio.com/")
-            //creating a new child of users to organize the firebase data
-            let usersReference = ref.child("Users").child(uid)
-            let values = ["name": name, "email": email]
-            usersReference.onDisconnectUpdateChildValues(values, withCompletionBlock: { (err, ref) in
-               
-                if let err = err{
-                    print(err)
-                    return
-                }
-                self.dismiss(animated: true, completion: nil)
-                print("Saved user successfully into Firebase Database")
-            })
-
-        })
-    }
+   
     
     
     //creating the textfields
@@ -145,13 +111,19 @@ class LoginController: UIViewController {
         return passwordTextFields
     }()
     
-    let profileImageView: UIImageView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Play Party Round")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
+        
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageview)))
+        imageView.isUserInteractionEnabled = true
+        
         return imageView
     }()
+    
+   
     
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Login", "Register"])

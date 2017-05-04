@@ -15,6 +15,7 @@
 		52D809571EB0E5B5006346AD /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D809561EB0E5B5006346AD /* LoginController.swift */; };
 		6CFD8F671B05CB4295F300E7 /* Pods_loginTestSwift_firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E7C9BDAB56AEF5672C4AC7 /* Pods_loginTestSwift_firebase.framework */; };
 		F100B5671EB9BF170067FD57 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100B5661EB9BF170067FD57 /* User.swift */; };
+		F100B5691EBA79C50067FD57 /* LoginController + handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F100B5681EBA79C50067FD57 /* LoginController + handlers.swift */; };
 		F12448651EB73D5000325060 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F12448641EB73D5000325060 /* GoogleService-Info.plist */; };
 		F12448671EB9197200325060 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12448661EB9197200325060 /* NewMessageController.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		BD5C1749D6E79CEDB5BB0754 /* Pods-loginTestSwift-firebase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-loginTestSwift-firebase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-loginTestSwift-firebase/Pods-loginTestSwift-firebase.debug.xcconfig"; sourceTree = "<group>"; };
 		D0E7C9BDAB56AEF5672C4AC7 /* Pods_loginTestSwift_firebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_loginTestSwift_firebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F100B5661EB9BF170067FD57 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F100B5681EBA79C50067FD57 /* LoginController + handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginController + handlers.swift"; sourceTree = "<group>"; };
 		F12448641EB73D5000325060 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F12448661EB9197200325060 /* NewMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 				52D809561EB0E5B5006346AD /* LoginController.swift */,
 				52D809461EB0DCD3006346AD /* MessagesController.swift */,
 				F12448661EB9197200325060 /* NewMessageController.swift */,
+				F100B5681EBA79C50067FD57 /* LoginController + handlers.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				52D809471EB0DCD3006346AD /* MessagesController.swift in Sources */,
 				52D809571EB0E5B5006346AD /* LoginController.swift in Sources */,
 				F100B5671EB9BF170067FD57 /* User.swift in Sources */,
+				F100B5691EBA79C50067FD57 /* LoginController + handlers.swift in Sources */,
 				52D809451EB0DCD3006346AD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
