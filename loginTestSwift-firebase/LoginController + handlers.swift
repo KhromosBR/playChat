@@ -32,10 +32,12 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
             //Successfully autenticated
             //To create a unic ID to each image
             let imageName = UUID().uuidString
-            let storageReference = FIRStorage.storage().reference().child("profile_images").child("\(imageName).png")
+            let storageReference = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
+            
+            if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.1){
             
             //creating binary data to upload
-            if let uploadData = UIImagePNGRepresentation(self.profileImageView.image!){
+//            if let uploadData = UIImagePNGRepresentation(self.profileImageView.image!){
                 //Autenticate the user
                 storageReference.put(uploadData, metadata: nil, completion: { (metadata, error) in
                     if error != nil{
@@ -67,15 +69,20 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 print(err)
                 return
             }
+//            self.messagesController?.fetchUserAndSetupNavBarTitle()
+            //send the name of the user loged in to the navigation title
+            let user = User(dictionary: values)
+            self.messagesController?.setupNavbarWithUser(user)
+            
             self.dismiss(animated: true, completion: nil)
             print("Saved user successfully into Firebase Database")
         })
     }
     //----------------------------------------------------------------------------------------------------
     
-    //Handle select profile Image
+    //Handle select profile Image - pickerController
     
-    func handleSelectProfileImageview(){
+    func handleSelectProfileImageView() {
         let picker = UIImagePickerController()
         
         picker.delegate = self
@@ -84,33 +91,30 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
         present(picker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
-         print(info)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        var selectedImageFromPicker : UIImage?
+        var selectedImageFromPicker: UIImage?
         
-        //selecting the image edited as profile picture
-        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage{
-           selectedImageFromPicker = editedImage
-
-        } else if let originalImage = info["UIImagePickerControllerOriginalimage"] as? UIImage {
-        //If you don't select any image it continues with the original size
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            
             selectedImageFromPicker = originalImage
         }
-        //set the profile image
-        if let selectedImage = selectedImageFromPicker{
+        
+        if let selectedImage = selectedImageFromPicker {
             profileImageView.image = selectedImage
         }
         
-        
         dismiss(animated: true, completion: nil)
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
-        print("The picker is canceled")
+        print("canceled picker")
         dismiss(animated: true, completion: nil)
     }
+    
 }
 
 

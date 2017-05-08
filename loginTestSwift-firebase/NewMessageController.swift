@@ -40,8 +40,6 @@ class NewMessageController: UITableViewController {
             })
             
             }
-            
-            
 //            print(snapshot)
         }, withCancel: nil)
     }
@@ -55,8 +53,7 @@ class NewMessageController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! userCell
         
         // It's how the users are fetched inside the tableview
@@ -64,16 +61,71 @@ class NewMessageController: UITableViewController {
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
         
+        if let profileImageUrl = user.profileImageUrl{
+            
+            cell.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+//01
+        }
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
     }
 }
 
 class userCell: UITableViewCell{
     
+    //to fix the texts inside the user cells
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Label position inside cell
+        textLabel?.frame = CGRect(x: 64, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
+        detailTextLabel?.frame = CGRect(x: 64, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
+
+    }
+    
+    //Organizing the cells to fit the pictures 
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 24
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
+     
+        return imageView
+    }()
+    
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        
+        addSubview(profileImageView)
+        
+        //need x, y , width and heigh
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+//            01
+//            let url = URL(string: profileImageUrl)
+//            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+//                //After a download error
+//                if error != nil{
+//                    print(error!)
+//                    return
+//                }
+//
+//                //If download successful load the images simutanially into the cells
+//                DispatchQueue.main.async(execute: {
+//                    cell.profileImageView.image = UIImage(data: data!)
+//                })
+//            }).resume()

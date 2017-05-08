@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class LoginController: UIViewController {
+ 
+    var messagesController: MessagesController?
 
     let inputsContainerView : UIView = {
         //creating the register layout
@@ -46,8 +48,7 @@ class LoginController: UIViewController {
     }
     
     func handleLogin(){
-        guard let email = emailTextField.text, let password = passwordTextField.text
-            else {
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
             print("form is not valid")
             return
         }
@@ -58,13 +59,11 @@ class LoginController: UIViewController {
                 return
             }
             //successfull logged in
+            
+            self.messagesController?.fetchUserAndSetupNavBarTitle()
             self.dismiss(animated: true, completion: nil)
         })
     }
-    
-   
-    
-    
     //creating the textfields
     let nameTextField : UITextField = {
         let nameTextFields = UITextField()
@@ -116,24 +115,20 @@ class LoginController: UIViewController {
         imageView.image = UIImage(named: "Play Party Round")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
-        
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageview)))
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView)))
         imageView.isUserInteractionEnabled = true
         
         return imageView
     }()
     
-   
-    
     lazy var loginRegisterSegmentedControl: UISegmentedControl = {
-        let sc = UISegmentedControl(items: ["Login", "Register"])
-        sc.translatesAutoresizingMaskIntoConstraints = false
-        sc.tintColor = UIColor.white
-        sc.selectedSegmentIndex = 1
-        sc.addTarget(self, action: #selector(handleLoginRegisterChange),for: .valueChanged)
-        return sc
+        let segmentedControl = UISegmentedControl(items: ["Login", "Register"])
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.tintColor = UIColor.white
+        segmentedControl.selectedSegmentIndex = 1
+        segmentedControl.addTarget(self, action: #selector(handleLoginRegisterChange),for: .valueChanged)
+        return segmentedControl
     }()
-    
     
     func handleLoginRegisterChange(){
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
